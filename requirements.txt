@@ -1,0 +1,2 @@
+phonenumbers==8.13.19
+pandas==2.0.3
