@@ -5,7 +5,7 @@ class Database:
     db: str = 'database.csv'
 
 class CRUD(Database):
-    def create(self, contact: Contact):
+    def create(self, contact: Contact) -> None:
         df = pd.read_csv(self.db)
         new_row = pd.DataFrame({
             'id': [contact.id],
@@ -21,7 +21,7 @@ class CRUD(Database):
         print('Created successfully')
 
 
-    def read(self):
+    def read(self) -> None:
         df = pd.read_csv(self.db)
         contacts = []
         for _, row in df.iterrows():
@@ -30,7 +30,8 @@ class CRUD(Database):
             contacts.append(contact)
         print(contacts)
 
-    def update(self, id_):
+
+    def update(self, id_) -> None:
         df = pd.read_csv(self.db)
         df.loc[df['id'] == self.contact.id, ['first_name', 'last_name', 'patronymic',
                                                 'company', 'phone_corporative', 'phone_personal']] = \
@@ -40,7 +41,7 @@ class CRUD(Database):
         print('Updated successfully')
 
 
-    def delete(self, id_):
+    def delete(self, id_) -> None:
         df = pd.read_csv(self.db)
         df = df[df['id'] != id_]
         df.to_csv(self.db, index=False)

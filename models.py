@@ -1,6 +1,6 @@
 #  фамилия, имя, отчество, название организации, телефон рабочий, телефон личный (сотовый)
 from dataclasses import dataclass
-from phonenumbers import PhoneNumberFormat, NumberParseException, parse, is_valid_number, format_number
+from phonenumbers import NumberParseException, parse, is_valid_number
 
 @dataclass
 class Contact:
