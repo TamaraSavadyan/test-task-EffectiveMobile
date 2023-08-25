@@ -26,7 +26,7 @@ class CRUD(Database):
         return f'{created_entity}\nCreated successfully'
 
     def read(self, page: int) -> str:
-        records_per_page = 10
+        records_per_page = 5
         df = pd.read_csv(self.db)
         start_idx = (page - 1) * records_per_page
         end_idx = start_idx + records_per_page
