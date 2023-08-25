@@ -37,10 +37,22 @@ def update_contact(database_conn: CRUD) -> None:
     if not check_if_integer(id_):
         print('You need to provide an integer')
         return
+    
+    keys_input = input('Enter keys to update in one line: ')
+    values_input = input('Enter corresponding values in one line: ')
 
-    result = database_conn.update(
-        id_=int(id_), first_name='MArie', last_name='Smth')
+    keys = keys_input.split()
+    values = values_input.split()
+
+    if len(keys) != len(values):
+        print("Number of keys and values must be the same.")
+        return
+
+    kwargs = {key: value for key, value in zip(keys, values)}
+
+    result = database_conn.update(id_=int(id_), **kwargs)
     print(result)
+
 
 
 def delete_contact(database_conn: CRUD) -> None:
