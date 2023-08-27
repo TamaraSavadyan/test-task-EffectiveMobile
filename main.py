@@ -3,6 +3,15 @@ from utils import check_if_integer
 
 
 def show_contacts(database_conn: CRUD) -> None:
+    '''
+    Displays contacts in a paginated manner.
+
+    Parameters:
+        database_conn (CRUD): An instance of the CRUD class representing the database connection.
+
+    Returns:
+        None
+    '''
     page = input(
         'Enter page number you want to see (you can leave this empty): ')
     if not page:
@@ -33,11 +42,20 @@ def show_contacts(database_conn: CRUD) -> None:
 
 
 def update_contact(database_conn: CRUD) -> None:
+    '''
+    Updates a contact's information.
+
+    Parameters:
+        database_conn (CRUD): An instance of the CRUD class representing the database connection.
+
+    Returns:
+        None
+    '''
     id_ = input('Enter contact id to modify it: ')
     if not check_if_integer(id_):
         print('You need to provide an integer')
         return
-    
+
     keys_input = input('Enter keys to update in one line: ')
     values_input = input('Enter corresponding values in one line: ')
 
@@ -45,7 +63,7 @@ def update_contact(database_conn: CRUD) -> None:
     values = values_input.split()
 
     if len(keys) != len(values):
-        print("Number of keys and values must be the same.")
+        print('Number of keys and values must be the same.')
         return
 
     kwargs = {key: value for key, value in zip(keys, values)}
@@ -54,8 +72,16 @@ def update_contact(database_conn: CRUD) -> None:
     print(result)
 
 
-
 def delete_contact(database_conn: CRUD) -> None:
+    '''
+    Deletes a contact based on the provided contact id.
+
+    Parameters:
+        database_conn (CRUD): An instance of the CRUD class representing the database connection.
+
+    Returns:
+        None
+    '''
     id_ = input('Enter contact id to delete it: ')
     if not check_if_integer(id_):
         print('You need to provide an integer')
@@ -65,6 +91,15 @@ def delete_contact(database_conn: CRUD) -> None:
 
 
 def add_contact(database_conn: CRUD) -> None:
+    '''
+    Adds a new contact to the phone book using user-provided key-value pairs.
+
+    Parameters:
+        database_conn (CRUD): An instance of the CRUD class representing the database connection.
+
+    Returns:
+        None
+    '''
     print('Do not provide id')
     keys_input = input('Enter all keys in one line: ')
     values_input = input('Enter all values in one line: ')
@@ -76,7 +111,7 @@ def add_contact(database_conn: CRUD) -> None:
     values = values_input.split()
 
     if len(keys) != len(values):
-        print("Number of keys and values must be the same.")
+        print('Number of keys and values must be the same.')
         return
 
     kwargs = {key: value for key, value in zip(keys, values)}
@@ -86,6 +121,15 @@ def add_contact(database_conn: CRUD) -> None:
 
 
 def find_contact(database_conn: CRUD) -> None:
+    '''
+    Finds contacts based on a specified field name and value.
+
+    Parameters:
+        database_conn (CRUD): An instance of the CRUD class representing the database connection.
+
+    Returns:
+        None
+    '''
     key = input('Enter field name: ')
     value = input('Enter field value: ')
     if key == 'id':
@@ -95,6 +139,12 @@ def find_contact(database_conn: CRUD) -> None:
 
 
 def main():
+    '''
+    Main function to run the Phone Book program.
+
+    Returns:
+        None
+    '''
     database_conn = CRUD()
     print('Welcome to The Phone Book !!!\nYou can add new contact to this book\nRead or modify existing contacts')
 
@@ -108,7 +158,7 @@ def main():
             print('find -> find contact using any parameter ')
             print('update -> update existing contact')
             print('delete -> delete existing contact')
-            print('exit -> stop this programm')
+            print('exit -> stop programm')
         elif user_input == 'show':
             show_contacts(database_conn)
         elif user_input == 'delete':

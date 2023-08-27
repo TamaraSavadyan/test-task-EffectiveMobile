@@ -7,7 +7,21 @@ class Database:
 
 
 class CRUD(Database):
+    '''
+    This class provides basic CRUD (Create, Read, Update, Delete) operations 
+    for managing contact records in a CSV-based database.
+    '''
+
     def create(self, **kwargs) -> str:
+        '''
+        Create a new contact record in the database.
+
+        Args:
+            **kwargs: Keyword arguments representing contact information.
+
+        Returns:
+            str: A message indicating the result of the operation.
+        '''
         df = pd.read_csv(self.db)
 
         if not df.empty:
@@ -26,6 +40,15 @@ class CRUD(Database):
         return f'{created_entity}\nCreated successfully'
 
     def read(self, page: int) -> str:
+        '''
+        Read and return a paginated view of contact records from the database.
+
+        Args:
+            page (int): The page number for pagination.
+
+        Returns:
+            str: A formatted string containing the paginated contact records.
+        '''
         records_per_page = 5
         df = pd.read_csv(self.db)
         start_idx = (page - 1) * records_per_page
@@ -38,6 +61,16 @@ class CRUD(Database):
         return paginated_df.to_string(index=False)
 
     def update(self, id_: int, **kwargs) -> str:
+        '''
+        Update an existing contact record in the database.
+
+        Args:
+            id_ (int): The ID of the contact to be updated.
+            **kwargs: Keyword arguments representing contact information to be updated.
+
+        Returns:
+            str: A message indicating the result of the operation.
+        '''
         df = pd.read_csv(self.db)
         entity_to_update = df[df['id'] == id_]
 
@@ -54,6 +87,15 @@ class CRUD(Database):
         return f'{updated_entity}\nUpdated successfully'
 
     def delete(self, id_: int) -> str:
+        '''
+        Delete a contact record from the database.
+
+        Args:
+            id_ (int): The ID of the contact to be deleted.
+
+        Returns:
+            str: A message indicating the result of the operation.
+        '''
         df = pd.read_csv(self.db)
         entity_to_delete = df[df['id'] == id_]
 
@@ -66,6 +108,15 @@ class CRUD(Database):
         return f'{entity_to_delete}\nDeleted successfully'
 
     def filter(self, **kwargs) -> str:
+        '''
+        Filter contact records based on provided criteria.
+
+        Args:
+            **kwargs: Keyword arguments representing filtering criteria.
+
+        Returns:
+            str: A formatted string containing the filtered contact records.
+        '''
         df = pd.read_csv(self.db)
         filtered_df = df.copy()
 
@@ -81,6 +132,5 @@ class CRUD(Database):
 if __name__ == '__main__':
     crud = CRUD()
 
-    res = crud.create(first_name='name', patronymic='name', company='name', phone_corporative='name', phone_personal='name')
+    res = crud.create(first_name='name', patronymic='name', company='name')
     print(res)
-
